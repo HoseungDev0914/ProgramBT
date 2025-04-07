@@ -1124,6 +1124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 2133608813}
+  model: {fileID: 917770032}
   swayAmount: 0.15
   swaySpeed: 8
 --- !u!1660057539 &9223372036854775807

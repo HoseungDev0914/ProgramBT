@@ -6,11 +6,11 @@ using UnityEngine.AI;
 public class GuardSteering : MonoBehaviour
 {
     public NavMeshAgent agent;
+    public Transform model;
 
     float patrolSpeed = 1.5f;
     float sprintSpeed = 3.5f;
 
-    //sway
     public float swayAmount = 0.15f;
     public float swaySpeed = 8f;
 
@@ -19,26 +19,34 @@ public class GuardSteering : MonoBehaviour
 
     void Start()
     {
-        initialLocalPos = transform.localPosition;
+        if (model == null)
+        {
+            Debug.LogError("[GuardSteering] Model reference not assigned!");
+            return;
+        }
+
+        initialLocalPos = model.localPosition;
         StartPatrol();
     }
 
     void Update()
     {
         if (agent.hasPath) ApplySway();
-        else ResetPosition();
+        else ResetModelPosition();
     }
 
     void ApplySway()
     {
-        if (!isSprinting) return;
+        if (!isSprinting || model == null) return;
+
         float sway = Mathf.Sin(Time.time * swaySpeed) * swayAmount;
-        transform.localPosition = initialLocalPos + new Vector3(sway, 0, 0);
+        model.localPosition = initialLocalPos + new Vector3(sway, 0, 0);
     }
 
-    void ResetPosition()
+    void ResetModelPosition()
     {
-        transform.localPosition = initialLocalPos;
+        if (model != null)
+            model.localPosition = initialLocalPos;
     }
 
     public void StartPatrol()
