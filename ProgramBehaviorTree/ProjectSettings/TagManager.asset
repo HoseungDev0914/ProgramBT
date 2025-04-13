@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - IllegalStructure
+  - Target
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Opponent
   - Water
   - UI
   - Wall
