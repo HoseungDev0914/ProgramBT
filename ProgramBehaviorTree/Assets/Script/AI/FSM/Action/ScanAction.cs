@@ -10,6 +10,7 @@ public class ScanAction : ActionTask
     public BBParameter<bool> isScanComplete;
     public BBParameter<Vector3> TargetPos;
     public BBParameter<GameObject> ScanableObj;
+    public BBParameter<bool> IsSignalSent;
 
     public float scanDuration = 2f;
     public float rotationSpeed = 360f;
@@ -23,6 +24,7 @@ public class ScanAction : ActionTask
 
     protected override void OnExecute()
     {
+        IsSignalSent.value = false;
         timer = 0f;
         scanSuccess = false;
         isScanComplete.value = false;
@@ -30,14 +32,14 @@ public class ScanAction : ActionTask
 
         self = agent.transform;
 
-        // ✅ 패트롤 인덱스 증가
+        //patrol checking index
         patrolIndex.value++;
         if (patrolIndex.value >= 8)
         {
             patrolIndex.value = 0;
         }
 
-        // ✅ 레이저 시각 효과 시작
+        // lazor
         if (scanBeam != null && eyeTransform != null)
         {
             scanBeam.enabled = true;
@@ -50,13 +52,13 @@ public class ScanAction : ActionTask
     {
         timer += Time.deltaTime;
 
-        // ✅ 드론 회전
+        // drone rotate
         if (self != null)
         {
             self.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
         }
 
-        // ✅ 레이저 방향 & Raycast
+        // lazor
         if (scanBeam != null && eyeTransform != null)
         {
             Vector3 start = eyeTransform.position;
@@ -72,14 +74,13 @@ public class ScanAction : ActionTask
                 {
                     scanSuccess = true;
 
-                    // ✅ 목표 좌표와 대상 오브젝트 저장
+                    // save target pos
                     TargetPos.value = new Vector3(hit.point.x, 0f, hit.point.z);
                     ScanableObj.value = hit.collider.gameObject;
                 }
             }
         }
 
-        // ✅ 스캔 종료 타이밍
         if (timer >= scanDuration)
         {
             isScanned.value = scanSuccess;

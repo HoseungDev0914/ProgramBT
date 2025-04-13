@@ -37,7 +37,7 @@ namespace NodeCanvas.Tasks.Actions
 
             if (!navAgent.value.pathPending && navAgent.value.remainingDistance <= navAgent.value.stoppingDistance)
             {
-                EndAction(true); // 도착했으므로 FSM에서 Scan 상태로 전이
+                EndAction(true); // to scan
             }
         }
     }

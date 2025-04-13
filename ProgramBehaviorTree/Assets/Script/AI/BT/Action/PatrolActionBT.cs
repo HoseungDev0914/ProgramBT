@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
@@ -27,6 +27,7 @@ public class PatrolActionBT : ActionTask
 
     protected override void OnUpdate()
     {
+
         if (navAgent.value == null || !navAgent.value.isOnNavMesh) return;
 
         if (!navAgent.value.pathPending && navAgent.value.remainingDistance <= navAgent.value.stoppingDistance)

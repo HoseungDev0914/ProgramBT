@@ -15,10 +15,13 @@ public class SendingSigAction : ActionTask
     private float timer = 0f;
     private Vector3 originalPosition;
 
+    public BBParameter<bool> IsSignalSent;
+
     protected override void OnExecute()
     {
         timer = 0f;
         originalPosition = agent.transform.position;
+        IsSignalSent.value = false;
 
         if (signalAudio != null)
         {

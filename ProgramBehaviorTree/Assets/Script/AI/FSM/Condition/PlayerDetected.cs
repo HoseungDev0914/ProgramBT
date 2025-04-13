@@ -11,7 +11,6 @@ public class PlayerDetected : ConditionTask
 
     protected override bool OnCheck()
     {
-        // 이미 감지된 상태라면 전이 불가
         if (IsRecentlyDetected.value)
             return false;
 
@@ -21,7 +20,7 @@ public class PlayerDetected : ConditionTask
             if (hit.CompareTag("Player"))
             {
                 playerLastKnownPosition.value = hit.transform.position;
-                IsRecentlyDetected.value = true; // ✅ 감지 플래그 설정
+                IsRecentlyDetected.value = true; // detection check
                 return true;
             }
         }
